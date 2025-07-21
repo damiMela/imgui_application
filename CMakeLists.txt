@@ -10,7 +10,9 @@ message(STATUS "[Lib ImGui App] Build type: ${CMAKE_BUILD_TYPE}")
 
 # ----------------------------------------------------------
 
-set(IMGUI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/imgui-1.89.7/")
+if(NOT DEFINED IMGUI_DIR)
+    message(FATAL_ERROR "[Lib ImGui App] IMGUI_DIR is not set. Please define it before calling add_subdirectory.")
+endif()
 
 set(LIB_INCLUDE_DIRECTORIES
 
