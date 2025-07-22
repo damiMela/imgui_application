@@ -23,7 +23,7 @@
     #include <emscripten.h> // for emscripten_set_main_loop_arg(), emscripten_cancel_main_loop()
 #endif
 
-class ImGui_Application::Impl
+class ImGuiApplication::Impl
 {
 public:
 
@@ -36,13 +36,13 @@ public:
     Impl() = default;
 };
 
-ImGui_Application::ImGui_Application()
+ImGuiApplication::ImGuiApplication()
     : _impl( new Impl() )
 {
 
 }
 
-ImGui_Application::~ImGui_Application()
+ImGuiApplication::~ImGuiApplication()
 {
     // Cleanup - ImGui
     ImGui_ImplOpenGL3_Shutdown();
@@ -55,7 +55,7 @@ ImGui_Application::~ImGui_Application()
     SDL_Quit();
 }
 
-bool ImGui_Application::init()
+bool ImGuiApplication::init()
 {
     // Setup SDL
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) != 0)
@@ -144,11 +144,11 @@ bool ImGui_Application::init()
     return true;
 }
 
-void ImGui_Application::run_main_loop()
+void ImGuiApplication::runMainLoop()
 {
     static const auto tick_func = [](void* user_data) -> bool
     {
-        ImGui_Application* self = static_cast<ImGui_Application*>(user_data);
+        ImGuiApplication* self = static_cast<ImGuiApplication*>(user_data);
 
         // Poll and handle events (inputs, window resize, etc.)
         // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
@@ -176,7 +176,7 @@ void ImGui_Application::run_main_loop()
         ImGui_ImplSDL2_NewFrame();
         ImGui::NewFrame();
 
-        self->draw_ui();
+        self->drawUi();
 
         // Rendering
         ImGui::Render();
@@ -185,7 +185,7 @@ void ImGui_Application::run_main_loop()
         glClearColor(self->_impl->clear_color.x, self->_impl->clear_color.y, self->_impl->clear_color.z, self->_impl->clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        self->draw_gl();
+        self->drawGl();
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         SDL_GL_SwapWindow(self->_impl->window);
@@ -221,26 +221,26 @@ void ImGui_Application::run_main_loop()
     #endif
 }
 
-void ImGui_Application::set_clear_color(float r, float g, float b, float a)
+void ImGuiApplication::setClearColor(float r, float g, float b, float a)
 {
     _impl->clear_color = ImVec4(r, g, b, a);
 }
 
-void ImGui_Application::set_window_title(const char* title)
+void ImGuiApplication::setWindowTitle(const char* title)
 {
     SDL_SetWindowTitle(_impl->window, title);
 }
-const char* ImGui_Application::get_window_title() const
+const char* ImGuiApplication::getWindowTitle() const
 {
     return SDL_GetWindowTitle(_impl->window);
 }
 
-void ImGui_Application::draw_ui()
+void ImGuiApplication::drawUi()
 {
     // NOOP
 }
 
-void ImGui_Application::draw_gl()
+void ImGuiApplication::drawGl()
 {
     // NOOP
 }

@@ -14,7 +14,7 @@
     {
     protected:
 
-        void draw_ui() override
+        void drawUi() override
         {
             ImGui::ShowDemoWindow();
         }
@@ -33,7 +33,7 @@
     @endcode
 */
 
-class ImGui_Application
+class ImGuiApplication
 {
     // PIMPL idiom
     class Impl;
@@ -41,20 +41,20 @@ class ImGui_Application
 
 public:
 
-    ImGui_Application();
-    virtual ~ImGui_Application();
+    ImGuiApplication();
+    virtual ~ImGuiApplication();
 
     virtual bool init();
-    void run_main_loop();
+    void runMainLoop();
 
 protected:
 
-    void set_clear_color(float r, float g, float b, float a);
+    void setClearColor(float r, float g, float b, float a);
 
-    void set_window_title(const char* title);
-    const char* get_window_title() const;
+    void setWindowTitle(const char* title);
+    const char* getWindowTitle() const;
 
-    virtual void draw_ui();
-    virtual void draw_gl();
+    virtual void drawUi();
+    virtual void drawGl();
 
 };
